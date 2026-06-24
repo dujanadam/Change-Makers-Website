@@ -1,0 +1,10 @@
+.DS_Store
+*.DS_Store
+**/.DS_Store
+.claude/
+node_modules/
+# Video files are too large for GitHub — keep locally only
+*.MOV
+*.mov
+*.mp4
+*.MP4

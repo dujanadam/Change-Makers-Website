@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply — Change Makers</title>
+  <meta name="description" content="Apply for Change Makers Summer 2025 — a two-week program for kids aged 9–14. July 10–25, Mecca.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="assets/Logo.png" type="image/png">
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" role="banner">
+    <a class="nav-logo" href="index.html" aria-label="Change Makers — home">
+      <img src="assets/Logo.png" alt="Change Makers logo" height="44">
+      <span class="nav-wordmark">Change Makers</span>
+    </a>
+    <button class="nav-menu-btn" id="menu-open" aria-label="Open menu" aria-expanded="false" aria-controls="menu-overlay">
+      MENU
+    </button>
+  </header>
+
+  <!-- MENU OVERLAY -->
+  <div class="menu-overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Site navigation">
+    <button class="menu-close" id="menu-close" aria-label="Close menu">✕</button>
+    <p class="menu-tagline">Seeds of Tomorrow</p>
+    <nav aria-label="Main menu">
+      <a href="about.html">About</a>
+      <a href="projects.html">Our Projects</a>
+      <a href="index.html#program">Program Info</a>
+      <a href="apply.html">Apply Now</a>
+    </nav>
+    <a href="apply.html" class="menu-apply-btn">Apply for Summer 2025 ↗</a>
+  </div>
+
+  <!-- APPLY PAGE -->
+  <main class="apply-page">
+    <div class="apply-page-inner">
+
+      <div style="margin-bottom: 52px;">
+        <p class="section-label fade-up">Summer 2025 Application</p>
+        <h1 class="section-title fade-up" style="font-size: clamp(2.2rem, 6vw, 4rem); margin-bottom: 20px;">
+          Apply to<br>Change Makers
+        </h1>
+        <p class="section-body fade-up">
+          Spots are limited to keep the program small and personal. Fill out the form below and we'll be in touch within a few days.
+        </p>
+
+        <div class="program-details fade-up" style="margin-top: 36px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
+          <div class="detail-card" style="padding: 20px;">
+            <div class="detail-icon" style="font-size: 1.5rem;">📅</div>
+            <div class="detail-label">Dates</div>
+            <div class="detail-value" style="font-size: 1.1rem;">July 10 – 25</div>
+            <div class="detail-sub">Mon–Thu only</div>
+          </div>
+          <div class="detail-card" style="padding: 20px;">
+            <div class="detail-icon" style="font-size: 1.5rem;">🌱</div>
+            <div class="detail-label">Ages</div>
+            <div class="detail-value" style="font-size: 1.1rem;">9 – 14</div>
+          </div>
+          <div class="detail-card" style="padding: 20px;">
+            <div class="detail-icon" style="font-size: 1.5rem;">💰</div>
+            <div class="detail-label">Cost</div>
+            <div class="detail-value" style="font-size: 1.1rem;">300 SAR</div>
+            <div class="detail-sub">Scholarships available</div>
+          </div>
+          <div class="detail-card" style="padding: 20px;">
+            <div class="detail-icon" style="font-size: 1.5rem;">📍</div>
+            <div class="detail-label">Location</div>
+            <div class="detail-value" style="font-size: 1.1rem;">Mecca</div>
+            <div class="detail-sub">In-person · Lunch provided</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hidden iframe: the form submits here so the user never leaves the page -->
+      <iframe name="cm-gf-target" id="cm-gf-target" style="display:none;" title="Form submission target" aria-hidden="true"></iframe>
+
+      <!-- Form posts directly to Google Forms — native browser POST, no fetch/CORS issues -->
+      <form
+        class="application-form fade-up"
+        id="cm-apply-form"
+        method="POST"
+        action="https://docs.google.com/forms/d/e/1FAIpQLSdXxZ1iGgA6xUol24FHDxNuiwHtAgR1Vw9MDVyzDCP0L_5znA/formResponse"
+        target="cm-gf-target"
+        novalidate
+        aria-label="Change Makers application form">
+
+        <!-- pageHistory tells Google Forms all 3 sections were visited -->
+        <input type="hidden" name="pageHistory" value="0,1,2">
+        <input type="hidden" name="fvv" value="1">
+
+        <!-- ── SECTION 1: Personal info ── -->
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--dark);margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--gray-200);">
+          About the Student &amp; Parent
+        </h2>
+
+        <div class="form-group">
+          <label class="form-label" for="f-student-name">
+            Name of Student <span class="req">*</span>
+          </label>
+          <input class="form-input" type="text" id="f-student-name" name="entry.981663539"
+                 placeholder="First and last name" required autocomplete="name">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-student-age">
+            Age of Student <span class="req">*</span>
+          </label>
+          <select class="form-select" id="f-student-age" name="entry.817555565" required>
+            <option value="">Select age</option>
+            <option>9</option><option>10</option><option>11</option>
+            <option>12</option><option>13</option><option>14</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-parent-name">
+            Name of Parent <span class="req">*</span>
+          </label>
+          <input class="form-input" type="text" id="f-parent-name" name="entry.713846209"
+                 placeholder="Full name" required autocomplete="name">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-email">
+            Email <span class="req">*</span>
+          </label>
+          <input class="form-input" type="email" id="f-email" name="entry.302844040"
+                 placeholder="your@email.com" required autocomplete="email">
+          <p class="form-hint">We'll confirm your application and share logistics by email.</p>
+        </div>
+
+        <div style="height:1px;background:var(--gray-200);margin:32px 0;"></div>
+
+        <!-- ── SECTION 2: About the student ── -->
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--dark);margin-bottom:28px;">
+          About Your Child
+        </h2>
+        <p style="font-size:0.9rem;color:var(--gray-600);margin-bottom:28px;font-weight:600;line-height:1.6;">
+          Have your child answer these in their own voice wherever possible. We're not looking for perfect answers — we're looking for honest ones.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label" for="f-why-maker">
+            Why do you want to be a Change Maker? <span class="req">*</span>
+          </label>
+          <textarea class="form-textarea" id="f-why-maker" name="entry.661655744"
+                    placeholder="In their own words — what draws them to this?" required style="min-height:110px;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-talent">
+            Do you have a talent or interest in something specific? <span class="req">*</span>
+          </label>
+          <textarea class="form-textarea" id="f-talent" name="entry.1998560517"
+                    placeholder="e.g. video games, art, chess, carpentry, reading, memorizing..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-brave">
+            Are you brave? <span class="req">*</span>
+          </label>
+          <textarea class="form-textarea" id="f-brave" name="entry.1928925230"
+                    placeholder="Bravery looks different for everyone — tell us about theirs." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-problem">
+            What problem in the world bothers you? Why does it bother you? <span class="req">*</span>
+          </label>
+          <textarea class="form-textarea" id="f-problem" name="entry.2112652142"
+                    placeholder="e.g. pollution, war, bullying, wasted food..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-action">
+            What do YOU think you could actually do about that problem, even as a kid? <span class="req">*</span>
+          </label>
+          <textarea class="form-textarea" id="f-action" name="entry.179279689"
+                    placeholder="Any idea — big or small." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-why-not-act">
+            Why do you think some people don't act to fix problems they see in the world? <span class="req">*</span>
+          </label>
+          <textarea class="form-textarea" id="f-why-not-act" name="entry.119731503"
+                    placeholder="Their perspective on this — or yours." required></textarea>
+        </div>
+
+        <div style="height:1px;background:var(--gray-200);margin:32px 0;"></div>
+
+        <!-- ── SECTION 3: Logistics ── -->
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--dark);margin-bottom:28px;">
+          Logistics
+        </h2>
+
+        <div class="form-group">
+          <label class="form-label">Do you have a mobile device you can bring? (a laptop is best) <span class="req">*</span></label>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+            <label style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:0.95rem;cursor:pointer;">
+              <input type="radio" name="entry.1584749208" value="Yes" required style="accent-color:var(--green);width:18px;height:18px;"> Yes
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:0.95rem;cursor:pointer;">
+              <input type="radio" name="entry.1584749208" value="No"> No
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Do you understand that the program runs from July 10–25 (Mon–Thu) and attendance is mandatory for all participants? <span class="req">*</span></label>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+            <label style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:0.95rem;cursor:pointer;">
+              <input type="radio" name="entry.1255361244" value="Yes" required style="accent-color:var(--green);width:18px;height:18px;"> Yes
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:0.95rem;cursor:pointer;">
+              <input type="radio" name="entry.1255361244" value="No"> No
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Do you have a mode of transport to get to the summer program? <span class="req">*</span></label>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+            <label style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:0.95rem;cursor:pointer;">
+              <input type="radio" name="entry.1912872993" value="Yes" required style="accent-color:var(--green);width:18px;height:18px;"> Yes
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:0.95rem;cursor:pointer;">
+              <input type="radio" name="entry.1912872993" value="No"> No
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Do you understand that the cost for this program is 400 SAR per student? (Cost is discounted to anyone for whom it would pose a significant barrier.) <span class="req">*</span></label>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+            <label style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:0.95rem;cursor:pointer;">
+              <input type="radio" name="entry.612513177" value="Yes" required style="accent-color:var(--green);width:18px;height:18px;"> Yes
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:0.95rem;cursor:pointer;">
+              <input type="radio" name="entry.612513177" value="I would like a scholarship"> I would like a scholarship
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;font-weight:600;font-size:0.95rem;cursor:pointer;">
+              <input type="radio" name="entry.612513177" value="No"> No
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-notes">
+            Do you have any questions, or is there anything else you'd like us to know before we get back to you?
+          </label>
+          <textarea class="form-textarea" id="f-notes" name="entry.1729203632"
+                    style="min-height:80px;"
+                    placeholder="Anything at all — questions, concerns, context..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Application</button>
+        <p class="form-disclaimer">
+          We'll be in touch within a few days. Spots are limited — early applications are prioritised.<br>
+          Questions? Email <a href="mailto:changemakersmecca@gmail.com" style="color:var(--green-dark);">changemakersmecca@gmail.com</a>
+        </p>
+
+      </form>
+
+      <script>
+      (function() {
+        var form = document.getElementById('cm-apply-form');
+        form.addEventListener('submit', function(e) {
+          var fields = Array.prototype.slice.call(form.querySelectorAll('[required]'));
+          var valid = true;
+          fields.forEach(function(el) {
+            var grp = el.closest('.form-group');
+            var empty = (el.type === 'radio')
+              ? !form.querySelector('[name="' + el.name + '"]:checked')
+              : !el.value.trim();
+            if (empty) {
+              valid = false;
+              if (el.type !== 'radio') el.style.borderColor = '#E53935';
+              if (grp && !grp.querySelector('.ferr')) {
+                var err = document.createElement('span');
+                err.className = 'ferr';
+                err.style.cssText = 'color:#E53935;font-size:.8rem;font-weight:700;margin-top:6px;display:block';
+                err.textContent = 'Required';
+                grp.appendChild(err);
+              }
+            } else {
+              el.style.borderColor = '';
+              if (grp) { var f = grp.querySelector('.ferr'); if (f) f.remove(); }
+            }
+          });
+          if (!valid) {
+            e.preventDefault();
+            var firstErr = form.querySelector('.ferr');
+            if (firstErr) firstErr.closest('.form-group').scrollIntoView({behavior:'smooth',block:'center'});
+            return;
+          }
+          /* All valid — let the form POST natively to the hidden iframe */
+          setTimeout(function() {
+            form.style.transition = 'opacity .3s';
+            form.style.opacity = '0';
+            setTimeout(function() {
+              var s = document.createElement('div');
+              s.style.cssText = 'text-align:center;padding:60px 40px;background:#E8F9ED;border-radius:20px;border:2px solid #3DCC52;';
+              s.innerHTML = '<div style="font-size:4rem;margin-bottom:20px">\uD83C\uDF31</div>'
+                + '<div style="font-family:Fredoka One,cursive;font-size:2rem;color:#1A7028;margin-bottom:12px">Application Received!</div>'
+                + '<p style="color:#4B5563;line-height:1.7;max-width:400px;margin:0 auto;font-family:Nunito,sans-serif;font-size:1rem;font-weight:600">Thank you! We will be in touch within a few days. Get ready to make a difference.</p>';
+              if (form.parentNode) form.parentNode.replaceChild(s, form);
+            }, 300);
+          }, 400);
+        });
+        form.querySelectorAll('input,textarea,select').forEach(function(el) {
+          el.addEventListener('change', function() {
+            el.style.borderColor = '';
+            var grp = el.closest('.form-group');
+            if (grp) { var f = grp.querySelector('.ferr'); if (f) f.remove(); }
+          });
+        });
+      })();
+      </script>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/Logo.png" alt="Change Makers logo" height="60">
+          <p class="footer-tagline">Seeds of Tomorrow</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <p class="footer-nav-label">Pages</p>
+          <a href="about.html">About</a>
+          <a href="projects.html">Our Projects</a>
+          <a href="index.html#program">Program Info</a>
+          <a href="apply.html">Apply Now</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Change Makers. All rights reserved.</p>
+        <p class="footer-copy">Mecca, Saudi Arabia</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

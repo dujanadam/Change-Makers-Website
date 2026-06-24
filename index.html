@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change Makers — Seeds of Tomorrow</title>
+  <meta name="description" content="A hands-on summer program teaching kids aged 9–14 to identify problems in their community and build real solutions. July 10–25.">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Favicon: logo -->
+  <link rel="icon" href="assets/Logo.png" type="image/png">
+</head>
+<body>
+
+  <!-- ========================
+       LOADER (Oliver Jeffers style — logo bobs, fades out when images load)
+       ======================== -->
+  <div id="cm-loader" aria-hidden="true">
+    <div class="cm-loader-inner">
+      <!-- Echo copy — expands outward like a ripple from the logo -->
+      <img src="assets/Logo.png" class="cm-loader-echo" alt="">
+      <!-- Main logo -->
+      <img src="assets/Logo.png" class="cm-loader-logo" alt="">
+    </div>
+  </div>
+
+  <!-- ========================
+       NAV
+       ======================== -->
+  <header class="nav" role="banner">
+    <a class="nav-logo" href="index.html" aria-label="Change Makers — home">
+      <img src="assets/Logo.png" alt="Change Makers logo" height="44">
+      <span class="nav-wordmark">Change Makers</span>
+    </a>
+    <button class="nav-menu-btn" id="menu-open" aria-label="Open menu" aria-expanded="false" aria-controls="menu-overlay">
+      MENU
+    </button>
+  </header>
+
+  <!-- ========================
+       MENU OVERLAY
+       ======================== -->
+  <div class="menu-overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Site navigation">
+    <button class="menu-close" id="menu-close" aria-label="Close menu">✕</button>
+    <p class="menu-tagline">Seeds of Tomorrow</p>
+    <nav aria-label="Main menu">
+      <a href="about.html">About</a>
+      <a href="projects.html">Our Projects</a>
+      <a href="index.html#program">Program Info</a>
+      <a href="apply.html">Apply Now</a>
+    </nav>
+    <a href="apply.html" class="menu-apply-btn">
+      Apply for Summer 2025 ↗
+    </a>
+  </div>
+
+  <!-- ========================
+       HERO — GENERATIVE COLLAGE
+       ======================== -->
+  <section class="hero" aria-label="Hero image collage">
+    <div class="collage-wrap" id="collage-wrap" role="img" aria-label="Generative collage — double-click to refresh">
+      <!-- Filled by collage.js -->
+    </div>
+    <div class="swatch-bar" id="swatch-bar" aria-hidden="true">
+      <!-- Color swatches filled by collage.js -->
+    </div>
+  </section>
+
+  <!-- ========================
+       CTA STRIP (first apply location)
+       ======================== -->
+  <div class="cta-strip" role="complementary" aria-label="Apply callout">
+    <p>Applications are open for Summer 2025 — July 10 to 25 &nbsp;·&nbsp; Ages 9–14</p>
+    <a href="apply.html" class="btn-strip">Apply Now →</a>
+  </div>
+
+  <!-- ========================
+       WHAT IS CHANGE MAKERS
+       ======================== -->
+  <section class="section what-is" id="about" aria-labelledby="what-is-title">
+    <div class="section-inner">
+      <div class="two-col">
+
+        <div class="fade-up">
+          <p class="section-label">What is Change Makers?</p>
+          <div class="tagline-block">
+            The world has problems.<br>
+            Your child has <em>ideas</em>.
+            <br>We close the gap.
+          </div>
+        </div>
+
+        <div class="fade-up">
+          <p class="section-body">
+            Change Makers is a hands-on summer program for kids aged 9–14. Over two weeks, participants identify a real problem in their community, research it, build a plan, and execute an actual project — finishing with a presentation to share what they've done and what they've learned.
+          </p>
+          <p class="section-body" style="margin-top: 16px;">
+            This is not a passive classroom. Kids leave having done something real. Something they chose. Something they're proud of.
+          </p>
+          <a href="about.html" class="link-more">Learn how it works</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       PROOF OF CONCEPT PROJECTS
+       ======================== -->
+  <section class="proof-section" id="projects" aria-labelledby="proof-title">
+    <div class="section-inner">
+
+      <p class="section-label fade-up">This works. We've done it.</p>
+      <h2 class="section-title fade-up" id="proof-title">
+        Real Kids.<br>Real Projects.<br>Real Change.
+      </h2>
+      <p class="section-body fade-up" style="margin-top: 0;">
+        Before we ever asked anyone to trust this program, we ran it. Here are two projects that prove the model works — both organized and executed by kids just like yours.
+      </p>
+
+      <div class="projects-grid" style="margin-top: 48px;">
+
+        <a href="projects/hunger.html" class="project-card fade-up" aria-label="The Hunger Project — read more">
+          <img src="assets/images/projects/hunger/DSC_0549.JPG"
+               alt="Assembled food boxes ready for distribution"
+               class="project-card-img">
+          <div class="project-card-info">
+            <span class="project-card-tag">Proof of Concept</span>
+            <h3 class="project-card-title">The Hunger Project</h3>
+            <p class="project-card-sub">Assembling & distributing food boxes to families in need</p>
+          </div>
+        </a>
+
+        <a href="projects/beach.html" class="project-card fade-up" aria-label="Community Beach Cleanup — read more">
+          <img src="assets/images/projects/beach/20211218_164406.jpg"
+               alt="A student picking up trash on the beach"
+               class="project-card-img"
+               style="object-position: 45% 75%;">
+          <div class="project-card-info">
+            <span class="project-card-tag">Proof of Concept</span>
+            <h3 class="project-card-title">Community Beach Cleanup</h3>
+            <p class="project-card-sub">Organizing a community-wide environmental action</p>
+          </div>
+        </a>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 32px;">
+        <a href="projects.html" class="link-more" style="display: inline-flex;">See both projects in full</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================
+       WHY — THE ELEPHANT STORY
+       ======================== -->
+  <section class="why-section" id="why" aria-labelledby="why-title">
+    <div class="why-inner">
+
+      <p class="section-label fade-up">Why this program exists</p>
+      <h2 class="section-title fade-up" id="why-title">
+        Your child will shape tomorrow.<br>The question is whether they believe they can.
+      </h2>
+
+      <div class="why-body fade-up">
+        <p>
+          There's a reason so many people see a problem and say "someone should do something about that." It isn't apathy. It's three things: no sense of purpose, not knowing how, and most powerfully — not believing they <em>can</em>.
+        </p>
+        <p>
+          Kids learn this belief young. When we only give children information and never give them agency, they grow up watching problems get bigger and feeling smaller. But that belief doesn't go away when they turn 18.
+        </p>
+      </div>
+
+      <blockquote class="why-quote fade-up">
+        "Baby elephants are tied to a stake with a rope they can't break. By the time they're strong enough to snap it easily, they've already stopped trying."
+      </blockquote>
+
+      <div class="why-body fade-up">
+        <p>
+          Change Makers is about cutting the rope early. About giving kids the experience of actually doing something — so that "I can make a difference" isn't just something they heard in a speech, it's something they've <em>lived</em>.
+        </p>
+        <p>
+          Your children will be architects of tomorrow whether they're ready for it or not. This program makes sure they're ready.
+        </p>
+      </div>
+
+      <div class="why-formula fade-up" aria-label="Change formula">
+        <div class="formula-part highlight">Motivation</div>
+        <span class="formula-eq">+</span>
+        <div class="formula-part">Knowledge</div>
+        <span class="formula-eq">+</span>
+        <div class="formula-part">Self-Belief</div>
+        <span class="formula-eq">=</span>
+        <div class="formula-part highlight">Change</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================
+       PROGRAM INFO
+       ======================== -->
+  <section class="program-section section" id="program" aria-labelledby="program-title">
+    <div class="section-inner">
+
+      <p class="section-label fade-up">Program details</p>
+      <h2 class="section-title fade-up" id="program-title">Everything you need to know</h2>
+
+      <div class="program-details">
+        <div class="detail-card fade-up">
+          <div class="detail-icon">📅</div>
+          <div class="detail-label">Dates</div>
+          <div class="detail-value">July 10 – 25</div>
+          <div class="detail-sub">Mon – Thu · Fridays excluded</div>
+        </div>
+        <div class="detail-card fade-up">
+          <div class="detail-icon">🌱</div>
+          <div class="detail-label">Ages</div>
+          <div class="detail-value">9 – 14</div>
+          <div class="detail-sub">All skill levels welcome</div>
+        </div>
+        <div class="detail-card fade-up">
+          <div class="detail-icon">💰</div>
+          <div class="detail-label">Cost</div>
+          <div class="detail-value">300 SAR</div>
+          <div class="detail-sub">Scholarships available — no one turned away for cost</div>
+        </div>
+        <div class="detail-card fade-up">
+          <div class="detail-icon">👥</div>
+          <div class="detail-label">Group size</div>
+          <div class="detail-value">~10 students</div>
+          <div class="detail-sub">Small cohort, real mentorship</div>
+        </div>
+        <div class="detail-card fade-up">
+          <div class="detail-icon">📍</div>
+          <div class="detail-label">Format</div>
+          <div class="detail-value">In-person</div>
+          <div class="detail-sub">Mecca area · Lunch provided</div>
+        </div>
+        <div class="detail-card fade-up">
+          <div class="detail-icon">💡</div>
+          <div class="detail-label">Bring</div>
+          <div class="detail-value">A device</div>
+          <div class="detail-sub">For research + work · Some provided</div>
+        </div>
+      </div>
+
+      <div class="program-steps fade-up" style="margin-top: 64px;">
+        <h3 class="program-steps-title">What happens during the program</h3>
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-text">What is a Change Maker?</div>
+              <div class="step-sub">Intro, examples, and the idea that ignites everything</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-text">Choose Your Problem</div>
+              <div class="step-sub">Every student picks a real issue they actually care about</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-text">Research</div>
+              <div class="step-sub">Go deep — understand the root causes, not just symptoms</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div>
+              <div class="step-text">Plan</div>
+              <div class="step-sub">Build a realistic, actionable project plan</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div>
+              <div class="step-text">Execute</div>
+              <div class="step-sub">Actually do the thing — real work, real results</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">6</div>
+            <div>
+              <div class="step-text">Document</div>
+              <div class="step-sub">Record and capture what was built and what was learned</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">7</div>
+            <div>
+              <div class="step-text">Present</div>
+              <div class="step-sub">Final presentation — show the world what you did</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================
+       APPLY (second location — full form)
+       ======================== -->
+  <section class="apply-section section" id="apply" aria-labelledby="apply-title">
+    <div class="section-inner">
+
+      <div class="apply-grid">
+
+        <div class="apply-sidebar">
+          <p class="section-label fade-up">Ready to start?</p>
+          <h2 class="section-title fade-up" id="apply-title">
+            Apply for<br>Change Makers
+          </h2>
+          <div class="apply-detail-list fade-up">
+            <div class="apply-detail-row">
+              <span>📅</span><span>July 10 – 25, 2025</span>
+            </div>
+            <div class="apply-detail-row">
+              <span>🌱</span><span>Ages 9 – 14</span>
+            </div>
+            <div class="apply-detail-row">
+              <span>💰</span><span>300 SAR per student</span>
+            </div>
+            <div class="apply-detail-row">
+              <span>📍</span><span>Mecca area, in-person</span>
+            </div>
+          </div>
+          <div class="apply-badge fade-up">
+            ✓ &nbsp;Scholarships available — ask us
+          </div>
+        </div>
+
+        <div class="fade-up" style="display:flex;flex-direction:column;gap:20px;justify-content:center;">
+          <p style="font-size:1rem;line-height:1.7;color:var(--gray-600);font-weight:600;">
+            The application takes about 5 minutes. Spots are limited — early applications are prioritized.
+          </p>
+          <a href="apply.html"
+             class="btn-submit"
+             style="display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-size:1.3rem;">
+            Open the Application Form →
+          </a>
+          <p style="font-size:0.82rem;color:var(--gray-400);font-weight:600;">
+            Questions? Email <a href="mailto:changemakersmecca@gmail.com" style="color:var(--green-dark);">changemakersmecca@gmail.com</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       FOOTER
+       ======================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/Logo.png" alt="Change Makers logo" height="60">
+          <p class="footer-tagline">Seeds of Tomorrow</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <p class="footer-nav-label">Pages</p>
+          <a href="about.html">About</a>
+          <a href="projects.html">Our Projects</a>
+          <a href="index.html#program">Program Info</a>
+          <a href="apply.html">Apply Now</a>
+        </nav>
+        <div class="footer-nav">
+          <p class="footer-nav-label">Projects</p>
+          <a href="projects/hunger.html">The Hunger Project</a>
+          <a href="projects/beach.html">Beach Cleanup</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Change Makers. All rights reserved.</p>
+        <p class="footer-copy">Mecca, Saudi Arabia</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/collage.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Change Makers</title>
+  <meta name="description" content="Real projects, real change. See the proof-of-concept projects that show Change Makers works.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="assets/Logo.png" type="image/png">
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" role="banner">
+    <a class="nav-logo" href="index.html" aria-label="Change Makers — home">
+      <img src="assets/Logo.png" alt="Change Makers logo" height="44">
+      <span class="nav-wordmark">Change Makers</span>
+    </a>
+    <button class="nav-menu-btn" id="menu-open" aria-label="Open menu" aria-expanded="false" aria-controls="menu-overlay">
+      MENU
+    </button>
+  </header>
+
+  <!-- MENU OVERLAY -->
+  <div class="menu-overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Site navigation">
+    <button class="menu-close" id="menu-close" aria-label="Close menu">✕</button>
+    <p class="menu-tagline">Seeds of Tomorrow</p>
+    <nav aria-label="Main menu">
+      <a href="about.html">About</a>
+      <a href="projects.html">Our Projects</a>
+      <a href="index.html#program">Program Info</a>
+      <a href="apply.html">Apply Now</a>
+    </nav>
+    <a href="apply.html" class="menu-apply-btn">Apply for Summer 2025 ↗</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <p class="section-label">Proof of Concept</p>
+      <h1 class="page-hero-title">It works.<br>Here's the evidence.</h1>
+      <p class="page-hero-sub">
+        Before asking anyone to trust this program, we ran it ourselves. These two projects were organized and executed by students using the exact same framework Change Makers teaches.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROJECTS GRID -->
+  <section class="section" aria-labelledby="projects-title">
+    <div class="section-inner">
+
+      <h2 class="section-title fade-up" id="projects-title" style="margin-bottom: 48px;">
+        Two projects.<br>One proof.
+      </h2>
+
+      <div class="projects-page-grid">
+
+        <a href="projects/hunger.html" class="project-card fade-up" style="aspect-ratio: 3/4;" aria-label="Read about the Hunger Project">
+          <img src="assets/images/projects/hunger/DSC_0549.JPG"
+               alt="Assembled food boxes ready for distribution"
+               class="project-card-img">
+          <div class="project-card-info">
+            <span class="project-card-tag">Food &amp; Community</span>
+            <h2 class="project-card-title">The Hunger Project</h2>
+            <p class="project-card-sub">
+              One student assembled and distributed food boxes to families in her community — tackling hunger at the neighbourhood level.
+            </p>
+            <p class="project-card-sub" style="margin-top: 8px; color: rgba(255,255,255,0.55);">Read the full project →</p>
+          </div>
+        </a>
+
+        <a href="projects/beach.html" class="project-card fade-up" style="aspect-ratio: 3/4;" aria-label="Read about the Beach Cleanup">
+          <img src="assets/images/projects/beach/20211218_164406.jpg"
+               alt="A student picking up trash on the beach"
+               class="project-card-img"
+               style="object-position: 45% 75%;">
+          <div class="project-card-info">
+            <span class="project-card-tag">Environment</span>
+            <h2 class="project-card-title">Community Beach Cleanup</h2>
+            <p class="project-card-sub">
+              One student organized an end-to-end community cleanup — from recruiting volunteers to coordinating logistics to showing up and doing it.
+            </p>
+            <p class="project-card-sub" style="margin-top: 8px; color: rgba(255,255,255,0.55);">Read the full project →</p>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHAT THESE PROVE -->
+  <section class="section why-section" aria-labelledby="proof-title">
+    <div class="why-inner">
+      <p class="section-label" style="color: var(--green);">What this proves</p>
+      <h2 class="section-title fade-up" id="proof-title" style="color: white;">
+        Kids don't need to wait until they're adults to do something real.
+      </h2>
+      <div class="why-body fade-up">
+        <p>
+          Both of these projects were real. Not simulations. Not school assignments. Real events with real people, real logistics, and real outcomes in the community.
+        </p>
+        <p>
+          The students who ran them weren't exceptional in some rare way. They were curious, motivated, and given a framework. That's the model Change Makers is built on — and it works.
+        </p>
+      </div>
+      <div style="margin-top: 48px;">
+        <a href="apply.html" class="menu-apply-btn" style="display: inline-flex; text-decoration: none;">Apply for Summer 2025 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/Logo.png" alt="Change Makers logo" height="60">
+          <p class="footer-tagline">Seeds of Tomorrow</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <p class="footer-nav-label">Pages</p>
+          <a href="about.html">About</a>
+          <a href="projects.html">Our Projects</a>
+          <a href="index.html#program">Program Info</a>
+          <a href="apply.html">Apply Now</a>
+        </nav>
+        <div class="footer-nav">
+          <p class="footer-nav-label">Projects</p>
+          <a href="projects/hunger.html">The Hunger Project</a>
+          <a href="projects/beach.html">Beach Cleanup</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Change Makers. All rights reserved.</p>
+        <p class="footer-copy">Mecca, Saudi Arabia</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
