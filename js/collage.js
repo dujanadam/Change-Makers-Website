@@ -396,8 +396,8 @@ function buildSwatchBar(swatches) {
 }
 
 /* ─── TITLE TEXT SCALING ─────────────────────────────────────── */
-/* Scales both text elements proportionally to the cell, then
-   shrinks them further if they overflow the box width.           */
+/* Sizes text proportionally to the cell. Text wraps via CSS
+   (word-break:break-word) so no overflow shrink loop is needed. */
 function observeTitleCell() {
   const cell = document.querySelector('[data-title]');
   if (!cell) return;
@@ -407,25 +407,8 @@ function observeTitleCell() {
     const smaller = Math.min(w, h);
     const main = cell.querySelector('[data-title-main]');
     const sub  = cell.querySelector('[data-title-sub]');
-
-    if (main) {
-      let sz = Math.max(smaller * 0.15, 10);
-      main.style.fontSize = `${sz}px`;
-      /* Shrink until the text fits horizontally */
-      while (main.scrollWidth > w - 16 && sz > 8) {
-        sz -= 1;
-        main.style.fontSize = `${sz}px`;
-      }
-    }
-
-    if (sub) {
-      let sz = Math.max(smaller * 0.07, 7);
-      sub.style.fontSize = `${sz}px`;
-      while (sub.scrollWidth > w - 16 && sz > 6) {
-        sz -= 1;
-        sub.style.fontSize = `${sz}px`;
-      }
-    }
+    if (main) main.style.fontSize = `${Math.max(smaller * 0.14, 10)}px`;
+    if (sub)  sub.style.fontSize  = `${Math.max(smaller * 0.065, 7)}px`;
   });
   obs.observe(cell);
 }

@@ -324,6 +324,23 @@ h4, h5, label, .label {
   transform: scale(1.03);
 }
 
+/* Logo on the right side of the menu overlay */
+.menu-logo {
+  position: absolute;
+  right: 7vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(180px, 28vw, 320px);
+  height: auto;
+  opacity: 1;
+  pointer-events: none;
+  mix-blend-mode: screen; /* white bg disappears on black, earth+bulb colors remain */
+}
+
+@media (max-width: 600px) {
+  .menu-logo { display: none; }
+}
+
 .menu-close {
   position: absolute;
   top: 24px;
@@ -422,21 +439,21 @@ h4, h5, label, .label {
 
 .title-main {
   font-family: var(--font-display);
-  font-size: 2rem;      /* overridden by ResizeObserver */
-  line-height: 1.05;
+  font-size: 2rem;          /* overridden by ResizeObserver */
+  line-height: 1.08;
   letter-spacing: -0.01em;
-  white-space: nowrap;  /* single line so scrollWidth overflow is detectable */
-  overflow: hidden;
+  word-break: break-word;   /* wraps if needed */
+  overflow-wrap: break-word;
 }
 
 .title-sub {
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 0.9rem;    /* overridden by ResizeObserver */
+  font-size: 0.9rem;        /* overridden by ResizeObserver */
   margin-top: 0.3em;
   letter-spacing: 0.04em;
-  white-space: nowrap;
-  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* ─── Inline swatch bar — injected BETWEEN rows by JS ──────────
@@ -468,7 +485,7 @@ h4, h5, label, .label {
    =========================== */
 
 .cta-strip {
-  background: var(--green);
+  background: var(--blue);
   padding: 20px 40px;
   display: flex;
   align-items: center;
@@ -659,7 +676,7 @@ h4, h5, label, .label {
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  background: var(--green);
+  background: var(--blue);
   color: var(--white);
   padding: 4px 12px;
   border-radius: var(--radius-full);
@@ -695,7 +712,7 @@ h4, h5, label, .label {
 }
 
 .why-section .section-label {
-  color: var(--green);
+  color: var(--blue);
 }
 
 .why-section .section-title {
@@ -717,11 +734,11 @@ h4, h5, label, .label {
 .why-quote {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 3vw, 2.2rem);
-  color: var(--green);
+  color: var(--blue);
   line-height: 1.25;
   margin: 48px 0;
   padding-left: 28px;
-  border-left: 4px solid var(--green);
+  border-left: 4px solid var(--blue);
 }
 
 .why-formula {
@@ -919,8 +936,8 @@ h4, h5, label, .label {
   gap: 6px;
   margin-top: 24px;
   padding: 10px 16px;
-  background: #E8F9ED;
-  color: var(--green-deep);
+  background: #E3F2FD;
+  color: var(--blue-deep);
   border-radius: var(--radius);
   font-size: 0.85rem;
   font-weight: 700;
@@ -972,8 +989,8 @@ h4, h5, label, .label {
 .form-input:focus,
 .form-textarea:focus,
 .form-select:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 4px rgba(61, 204, 82, 0.12);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(30, 173, 224, 0.12);
 }
 
 .form-textarea {
