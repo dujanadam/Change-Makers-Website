@@ -438,7 +438,7 @@ function dismissLoader() {
     if (el.dataset.dismissed) return;
     el.dataset.dismissed = '1';
     el.classList.add('cm-loader--out');
-    setTimeout(() => el.remove(), 300);
+    setTimeout(() => el.remove(), 1200);
   }, delay);
 }
 
