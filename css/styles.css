@@ -48,7 +48,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.7s ease;
+  transition: opacity 0.3s ease;
   animation: cl-fadein 1s ease both;
   overflow: hidden;
 }
@@ -84,22 +84,6 @@
   text-shadow: 0 2px 18px rgba(67, 217, 138, 0.25);
 }
 
-/* Progress bar */
-.cl-progress-track {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-#cl-progress {
-  height: 100%;
-  background: linear-gradient(90deg, #c8a84b 0%, #43d98a 100%);
-  width: 0%;
-  transition: width 0.1s linear;
-}
 
 /* ===========================
    RESET & BASE

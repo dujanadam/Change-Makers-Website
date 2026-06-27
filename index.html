@@ -27,8 +27,8 @@
 
       <!-- Clay moon -->
       <div id="cl-moon" style="position:absolute;left:50%;top:50%;z-index:1;pointer-events:none;will-change:transform;">
-        <div style="position:relative;width:80px;height:80px;filter:drop-shadow(0 6px 16px rgba(0,0,0,0.6)) drop-shadow(0 2px 5px rgba(0,0,0,0.45));">
-          <svg width="80" height="80" viewBox="0 0 80 80" style="position:absolute;inset:0;display:block;overflow:visible;">
+        <div style="position:relative;width:50px;height:50px;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6)) drop-shadow(0 2px 4px rgba(0,0,0,0.45));">
+          <svg width="50" height="50" viewBox="0 0 80 80" style="position:absolute;inset:0;display:block;overflow:visible;">
             <defs>
               <filter id="cl-warp" x="-25%" y="-25%" width="150%" height="150%">
                 <feTurbulence type="fractalNoise" baseFrequency="0.018 0.022" numOctaves="2" seed="11" result="w"></feTurbulence>
@@ -90,10 +90,10 @@
       </div>
 
       <!-- Logo with bulb glow -->
-      <div id="cl-logo" style="position:absolute;left:50%;top:calc(50% + 86px);transform:translate(-50%,-50%);z-index:3;pointer-events:none;will-change:transform;">
+      <div id="cl-logo" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;pointer-events:none;will-change:transform;">
         <div style="position:relative;display:inline-block;">
           <div id="cl-bulb-glow" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:140px;height:140px;background:radial-gradient(circle at 50% 50%, rgba(255,198,96,0.85) 0%, rgba(255,170,64,0.4) 32%, transparent 66%);filter:blur(6px);pointer-events:none;border-radius:50%;opacity:0.5;"></div>
-          <img src="assets/Logo.png" alt="" style="display:block;height:180px;width:auto;position:relative;">
+          <img src="assets/Logo.png" alt="" style="display:block;height:260px;width:auto;position:relative;">
           <div id="cl-filament" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:30px;height:46px;pointer-events:none;mix-blend-mode:screen;">
             <div style="position:absolute;inset:0;background:radial-gradient(ellipse 52% 64% at 50% 48%, rgba(255,247,224,1) 0%, rgba(255,210,124,0.8) 46%, transparent 76%);filter:blur(2px);"></div>
             <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:9px;height:22px;border-radius:5px;background:#fffdf2;filter:blur(1px);"></div>
@@ -101,9 +101,6 @@
         </div>
       </div>
 
-      <div class="cl-progress-track">
-        <div id="cl-progress"></div>
-      </div>
     </div>
 
     <div class="cl-label">Loading</div>
