@@ -6,7 +6,6 @@
   var logo = document.getElementById('cl-logo');
   var bulbGlow = document.getElementById('cl-bulb-glow');
   var filament = document.getElementById('cl-filament');
-  var progress = document.getElementById('cl-progress');
 
   if (!moon) return; // loader not present on this page
 
@@ -77,8 +76,6 @@
       bulbGlow.style.opacity = gop.toFixed(3);
       bulbGlow.style.transform = 'translate(-50%,-50%) scale(' + (0.9 + 0.16 * fl).toFixed(3) + ')';
     }
-
-    if (progress) progress.style.width = ((elapsed % 5400) / 5400 * 100).toFixed(1) + '%';
 
     raf = requestAnimationFrame(animate);
   }

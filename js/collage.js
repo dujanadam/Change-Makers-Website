@@ -433,7 +433,7 @@ function dismissLoader() {
   if (!el || el.dataset.dismissed) return;
   el.dataset.dismissed = '1';
   el.classList.add('cm-loader--out');
-  setTimeout(() => el.remove(), 700);
+  setTimeout(() => el.remove(), 300);
 }
 
 /* ─── DOUBLE-CLICK TO REGENERATE ────────────────────────────── */
