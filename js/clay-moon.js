@@ -27,7 +27,7 @@
     var scale = 0.86 + 0.07 * (1 - sinT);
     var isBehind = sinT > 0;
 
-    var sunX = 0, sunY = 165;
+    var sunX = 0, sunY = 0;
     var lvx = sunX - moonX, lvy = sunY - moonY;
     var ld = Math.hypot(lvx, lvy) || 1;
     lvx /= ld; lvy /= ld;

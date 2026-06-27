@@ -428,12 +428,18 @@ function observeTitleCell() {
 }
 
 /* ─── LOADER ─────────────────────────────────────────────────── */
+const _loaderStart = Date.now();
 function dismissLoader() {
   const el = document.getElementById('cm-loader');
   if (!el || el.dataset.dismissed) return;
-  el.dataset.dismissed = '1';
-  el.classList.add('cm-loader--out');
-  setTimeout(() => el.remove(), 300);
+  const elapsed = Date.now() - _loaderStart;
+  const delay = Math.max(0, 2000 - elapsed);
+  setTimeout(() => {
+    if (el.dataset.dismissed) return;
+    el.dataset.dismissed = '1';
+    el.classList.add('cm-loader--out');
+    setTimeout(() => el.remove(), 300);
+  }, delay);
 }
 
 /* ─── DOUBLE-CLICK TO REGENERATE ────────────────────────────── */
