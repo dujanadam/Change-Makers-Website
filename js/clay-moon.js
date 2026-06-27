@@ -4,8 +4,6 @@
   var shade = document.getElementById('cl-shade');
   var eclipseEl = document.getElementById('cl-eclipse');
   var logo = document.getElementById('cl-logo');
-  var bulbGlow = document.getElementById('cl-bulb-glow');
-  var filament = document.getElementById('cl-filament');
 
   if (!moon) return; // loader not present on this page
 
@@ -62,20 +60,6 @@
       logo.style.transform = 'translate(calc(-50% + ' + fx.toFixed(2) + 'px), calc(-50% + ' + fy.toFixed(2) + 'px)) rotate(' + rot.toFixed(2) + 'deg)';
     }
 
-    var s2 = elapsed / 1000;
-    var fl = 0.5 * Math.sin(s2 * 13) + 0.3 * Math.sin(s2 * 27.3 + 1.7) + 0.2 * Math.sin(s2 * 41.1 + 0.4);
-    var dip = Math.max(0, Math.sin(s2 * 3.1 + 2)) > 0.985 ? 1 : 0;
-
-    if (filament) {
-      var fop = Math.max(0.55, 0.85 + 0.15 * fl - 0.45 * dip);
-      filament.style.opacity = fop.toFixed(3);
-      filament.style.transform = 'translate(-50%,-50%) scale(' + (0.92 + 0.12 * fl).toFixed(3) + ')';
-    }
-    if (bulbGlow) {
-      var gop = Math.max(0.22, 0.55 + 0.32 * fl - 0.4 * dip);
-      bulbGlow.style.opacity = gop.toFixed(3);
-      bulbGlow.style.transform = 'translate(-50%,-50%) scale(' + (0.9 + 0.16 * fl).toFixed(3) + ')';
-    }
 
     raf = requestAnimationFrame(animate);
   }
