@@ -43,11 +43,14 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: var(--white);
+  background: radial-gradient(ellipse at 50% 64%, #16131f 0%, #0c0c18 60%);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: opacity 0.7s ease;
+  animation: cl-fadein 1s ease both;
+  overflow: hidden;
 }
 
 #cm-loader.cm-loader--out {
@@ -55,58 +58,47 @@
   pointer-events: none;
 }
 
-.cm-loader-inner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 160px;
-  height: 160px;
+@keyframes cl-fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* Echo copy — same logo, expands outward like a ripple */
-.cm-loader-echo {
+/* Orbit stage */
+.cl-stage {
+  position: relative;
+  width: 520px;
+  height: 480px;
+  max-width: 90vw;
+}
+
+/* Loading label */
+.cl-label {
+  margin-top: 6px;
+  text-align: center;
+  font-family: 'Amatic SC', cursive;
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 0.9;
+  letter-spacing: 0.06em;
+  color: #43d98a;
+  text-shadow: 0 2px 18px rgba(67, 217, 138, 0.25);
+}
+
+/* Progress bar */
+.cl-progress-track {
   position: absolute;
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
-  opacity: 0;
-  animation: loader-echo 2.2s ease-out 0.5s infinite;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.04);
 }
 
-@keyframes loader-echo {
-  0%   { transform: scale(0.85); opacity: 0.5; }
-  100% { transform: scale(2.4);  opacity: 0;   }
-}
-
-/* Main logo */
-.cm-loader-logo {
-  position: relative;
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
-  opacity: 0;
-  animation:
-    loader-appear 0.5s ease 0.1s forwards,
-    loader-glow   2.2s ease-in-out 0.6s infinite;
-}
-
-@keyframes loader-appear {
-  from { opacity: 0; transform: scale(0.75); }
-  to   { opacity: 1; transform: scale(1);    }
-}
-
-@keyframes loader-glow {
-  0%, 100% {
-    transform: scale(0.96);
-    filter: drop-shadow(0 0 6px  rgba(61, 204, 82, 0.25))
-            drop-shadow(0 0 2px  rgba(30, 173, 224, 0.15));
-  }
-  50% {
-    transform: scale(1.04);
-    filter: drop-shadow(0 0 22px rgba(61, 204, 82, 0.7))
-            drop-shadow(0 0 40px rgba(30, 173, 224, 0.4));
-  }
+#cl-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #c8a84b 0%, #43d98a 100%);
+  width: 0%;
+  transition: width 0.1s linear;
 }
 
 /* ===========================

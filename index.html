@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Change Makers — Seeds of Tomorrow</title>
   <meta name="description" content="A hands-on summer program teaching kids aged 9–14 to identify problems in their community and build real solutions. July 10–25.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap">
   <link rel="stylesheet" href="css/styles.css">
   <!-- Favicon: logo -->
   <link rel="icon" href="assets/Logo.png" type="image/png">
@@ -12,15 +15,98 @@
 <body>
 
   <!-- ========================
-       LOADER (Oliver Jeffers style — logo bobs, fades out when images load)
+       LOADER — Clay Moon animation, fades out when images load
        ======================== -->
   <div id="cm-loader" aria-hidden="true">
-    <div class="cm-loader-inner">
-      <!-- Echo copy — expands outward like a ripple from the logo -->
-      <img src="assets/Logo.png" class="cm-loader-echo" alt="">
-      <!-- Main logo -->
-      <img src="assets/Logo.png" class="cm-loader-logo" alt="">
+    <div class="cl-stage">
+
+      <!-- Tilted orbit ring -->
+      <svg overflow="visible" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;" width="440" height="220" viewBox="-220 -110 440 220">
+        <ellipse cx="0" cy="0" rx="186" ry="64" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.75" stroke-dasharray="3 13" transform="rotate(20)"></ellipse>
+      </svg>
+
+      <!-- Clay moon -->
+      <div id="cl-moon" style="position:absolute;left:50%;top:50%;z-index:1;pointer-events:none;will-change:transform;">
+        <div style="position:relative;width:80px;height:80px;filter:drop-shadow(0 6px 16px rgba(0,0,0,0.6)) drop-shadow(0 2px 5px rgba(0,0,0,0.45));">
+          <svg width="80" height="80" viewBox="0 0 80 80" style="position:absolute;inset:0;display:block;overflow:visible;">
+            <defs>
+              <filter id="cl-warp" x="-25%" y="-25%" width="150%" height="150%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.018 0.022" numOctaves="2" seed="11" result="w"></feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="w" scale="5.5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+              </filter>
+              <filter id="cl-bump" x="0%" y="0%" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.085" numOctaves="3" seed="6" result="n"></feTurbulence>
+                <feDiffuseLighting in="n" surfaceScale="2.1" diffuseConstant="1.15" lighting-color="#fff6e9" result="b">
+                  <feDistantLight azimuth="258" elevation="52"></feDistantLight>
+                </feDiffuseLighting>
+              </filter>
+              <filter id="cl-grain" x="0%" y="0%" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.62" numOctaves="2" seed="3" result="g"></feTurbulence>
+                <feColorMatrix in="g" type="matrix" values="0 0 0 0 0.36  0 0 0 0 0.32  0 0 0 0 0.27  0 0 0 0.6 0"></feColorMatrix>
+              </filter>
+              <radialGradient id="cl-base" cx="38%" cy="33%" r="68%">
+                <stop offset="0%" stop-color="#e7ddca"></stop>
+                <stop offset="46%" stop-color="#cdc0a8"></stop>
+                <stop offset="100%" stop-color="#9b8c79"></stop>
+              </radialGradient>
+              <radialGradient id="cl-core" cx="68%" cy="72%" r="60%">
+                <stop offset="0%" stop-color="#54483c" stop-opacity="0.6"></stop>
+                <stop offset="100%" stop-color="#54483c" stop-opacity="0"></stop>
+              </radialGradient>
+              <radialGradient id="cl-dimple" cx="50%" cy="34%" r="60%">
+                <stop offset="0%" stop-color="#7d6f5d" stop-opacity="0.7"></stop>
+                <stop offset="55%" stop-color="#9b8b76" stop-opacity="0.25"></stop>
+                <stop offset="100%" stop-color="#efe6d4" stop-opacity="0.5"></stop>
+              </radialGradient>
+              <clipPath id="cl-clip"><circle cx="40" cy="40" r="35"></circle></clipPath>
+            </defs>
+            <g filter="url(#cl-warp)">
+              <g clip-path="url(#cl-clip)">
+                <circle cx="40" cy="40" r="35" fill="url(#cl-base)"></circle>
+                <circle cx="40" cy="40" r="35" fill="#888" filter="url(#cl-bump)" style="mix-blend-mode:soft-light" opacity="0.85"></circle>
+                <circle cx="40" cy="40" r="35" filter="url(#cl-grain)" style="mix-blend-mode:overlay" opacity="0.5"></circle>
+                <circle cx="40" cy="40" r="35" fill="url(#cl-core)"></circle>
+                <g style="mix-blend-mode:multiply" opacity="0.55">
+                  <circle cx="27" cy="29" r="7.5" fill="url(#cl-dimple)"></circle>
+                  <circle cx="51" cy="46" r="9.5" fill="url(#cl-dimple)"></circle>
+                  <circle cx="30" cy="52" r="5" fill="url(#cl-dimple)"></circle>
+                  <circle cx="55" cy="26" r="5.6" fill="url(#cl-dimple)"></circle>
+                  <circle cx="41" cy="18" r="3.6" fill="url(#cl-dimple)"></circle>
+                  <circle cx="20" cy="42" r="4.2" fill="url(#cl-dimple)"></circle>
+                </g>
+                <g fill="none" stroke="rgba(247,240,226,0.5)" stroke-width="1.1" style="mix-blend-mode:screen">
+                  <path d="M21 33 A7.5 7.5 0 0 0 33 31"></path>
+                  <path d="M43 53 A9.5 9.5 0 0 0 59 49"></path>
+                  <path d="M26 55 A5 5 0 0 0 34 53"></path>
+                </g>
+                <ellipse cx="31" cy="27" rx="20" ry="15" fill="#fbf5ea" opacity="0.16" style="mix-blend-mode:soft-light"></ellipse>
+              </g>
+            </g>
+          </svg>
+          <div id="cl-lit" style="position:absolute;inset:0;border-radius:50%;mix-blend-mode:screen;pointer-events:none;"></div>
+          <div id="cl-shade" style="position:absolute;inset:0;border-radius:50%;mix-blend-mode:multiply;pointer-events:none;"></div>
+          <div id="cl-eclipse" style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 50%, rgba(74,26,18,0.55) 0%, rgba(30,12,10,0.92) 70%);mix-blend-mode:multiply;opacity:0;pointer-events:none;"></div>
+        </div>
+      </div>
+
+      <!-- Logo with bulb glow -->
+      <div id="cl-logo" style="position:absolute;left:50%;top:calc(50% + 86px);transform:translate(-50%,-50%);z-index:3;pointer-events:none;will-change:transform;">
+        <div style="position:relative;display:inline-block;">
+          <div id="cl-bulb-glow" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:140px;height:140px;background:radial-gradient(circle at 50% 50%, rgba(255,198,96,0.85) 0%, rgba(255,170,64,0.4) 32%, transparent 66%);filter:blur(6px);pointer-events:none;border-radius:50%;opacity:0.5;"></div>
+          <img src="assets/Logo.png" alt="" style="display:block;height:180px;width:auto;position:relative;">
+          <div id="cl-filament" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:30px;height:46px;pointer-events:none;mix-blend-mode:screen;">
+            <div style="position:absolute;inset:0;background:radial-gradient(ellipse 52% 64% at 50% 48%, rgba(255,247,224,1) 0%, rgba(255,210,124,0.8) 46%, transparent 76%);filter:blur(2px);"></div>
+            <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:9px;height:22px;border-radius:5px;background:#fffdf2;filter:blur(1px);"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cl-progress-track">
+        <div id="cl-progress"></div>
+      </div>
     </div>
+
+    <div class="cl-label">Loading</div>
   </div>
 
   <!-- ========================
@@ -451,5 +537,6 @@
 
   <script src="js/collage.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/clay-moon.js"></script>
 </body>
 </html>
