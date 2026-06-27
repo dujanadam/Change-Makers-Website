@@ -4,6 +4,6 @@
 .DS_Store
 .claude/
 node_modules/
-Change Makers/
-Change Makers.png
-Logo.png
+/Change Makers/
+/Change Makers.png
+/Logo.png
