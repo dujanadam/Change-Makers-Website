@@ -428,10 +428,10 @@ function observeTitleCell() {
     main.style.fontSize = `${mainSize}px`;
     sub.style.fontSize  = `${subSize}px`;
 
-    // Shrink until content fits inside the cell height
-    while (inner.scrollHeight > h * 1.02 && mainSize > 7) {
-      mainSize *= 0.9;
-      subSize  *= 0.9;
+    // Shrink until content fits inside the cell (height and width)
+    while ((inner.scrollHeight > h * 1.02 || inner.scrollWidth > w * 1.02) && mainSize > 7) {
+      mainSize *= 0.88;
+      subSize  *= 0.88;
       main.style.fontSize = `${mainSize}px`;
       sub.style.fontSize  = `${subSize}px`;
     }
