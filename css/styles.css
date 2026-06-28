@@ -220,6 +220,12 @@ h4, h5, label, .label {
   transform: scale(1.05);
 }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .nav-apply-btn {
   opacity: 0;
   pointer-events: none;
