@@ -1241,6 +1241,58 @@ h4, h5, label, .label {
   color: var(--green);
 }
 
+.footer-contact-cta {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 40px 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-contact-label {
+  color: rgba(255,255,255,0.7);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.footer-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  padding: 14px 32px;
+  border-radius: var(--radius-full);
+  transition: background var(--transition), transform var(--transition);
+  white-space: nowrap;
+}
+
+.footer-contact-btn:hover {
+  background: var(--green-dark);
+  transform: scale(1.03);
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.contact-detail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--gray-600);
+  font-size: 0.95rem;
+}
+
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.08);
   padding-top: 24px;
