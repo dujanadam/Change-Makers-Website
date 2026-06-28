@@ -220,6 +220,32 @@ h4, h5, label, .label {
   transform: scale(1.05);
 }
 
+.nav-apply-btn {
+  opacity: 0;
+  pointer-events: none;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--green);
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  transition: opacity var(--transition), background var(--transition);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.nav.scrolled .nav-apply-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav.scrolled .nav-apply-btn:hover {
+  background: var(--green-dark);
+}
+
 /* ===========================
    MENU OVERLAY
    =========================== */
@@ -1246,8 +1272,8 @@ h4, h5, label, .label {
   padding: 40px 0 32px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  justify-content: center;
+  gap: 32px;
   flex-wrap: wrap;
 }
 
