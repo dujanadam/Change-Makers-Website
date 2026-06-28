@@ -336,12 +336,14 @@ function renderCollage() {
       } else {
         const g1 = cell.sw?.[1] || '#888';
         const g2 = cell.sw?.[3] || '#aaa';
+        /* Use background-image longhand (NOT shorthand) so the CSS class
+           background-size:contain / background-position / background-color
+           are NOT reset by the inline style. */
         html += `
           <div class="collage-cell img-cell"
-               style="background:linear-gradient(135deg,${g1},${g2})"
+               style="background-image:linear-gradient(135deg,${g1},${g2})"
                data-url="${BASE}${cell.f}"
                data-sw='${JSON.stringify(cell.sw || [])}'>
-            <img class="cell-img" alt="" loading="lazy" style="display:none">
           </div>`;
       }
     });
@@ -371,10 +373,10 @@ function renderCollage() {
 
   imgCells.forEach(cell => {
     const url = cell.dataset.url;
-    const imgEl = cell.querySelector('.cell-img');
-    imgEl.onload  = () => { imgEl.style.display = ''; onImageSettled(); };
-    imgEl.onerror = () => { onImageSettled(); };
-    imgEl.src = url;
+    const img = new Image();
+    img.onload  = () => { cell.style.backgroundImage = `url('${url}')`; onImageSettled(); };
+    img.onerror = () => { onImageSettled(); };
+    img.src = url;
   });
 
   // Safety: always dismiss within 4 s regardless of network
