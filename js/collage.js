@@ -410,8 +410,7 @@ function buildSwatchBar(swatches) {
 }
 
 /* ─── TITLE TEXT SCALING ─────────────────────────────────────── */
-/* Sizes text proportionally to the cell. Text wraps via CSS
-   (word-break:break-word) so no overflow shrink loop is needed. */
+/* Start proportionally, then shrink until text fits the cell. */
 function observeTitleCell() {
   const cell = document.querySelector('[data-title]');
   if (!cell) return;
@@ -419,10 +418,23 @@ function observeTitleCell() {
   const obs = new ResizeObserver(([entry]) => {
     const { width: w, height: h } = entry.contentRect;
     const smaller = Math.min(w, h);
-    const main = cell.querySelector('[data-title-main]');
-    const sub  = cell.querySelector('[data-title-sub]');
-    if (main) main.style.fontSize = `${Math.max(smaller * 0.14, 10)}px`;
-    if (sub)  sub.style.fontSize  = `${Math.max(smaller * 0.065, 7)}px`;
+    const main  = cell.querySelector('[data-title-main]');
+    const sub   = cell.querySelector('[data-title-sub]');
+    const inner = cell.querySelector('[data-title-inner]');
+    if (!main || !sub || !inner) return;
+
+    let mainSize = Math.max(smaller * 0.14, 10);
+    let subSize  = Math.max(smaller * 0.065, 7);
+    main.style.fontSize = `${mainSize}px`;
+    sub.style.fontSize  = `${subSize}px`;
+
+    // Shrink until content fits inside the cell height
+    while (inner.scrollHeight > h * 1.02 && mainSize > 7) {
+      mainSize *= 0.9;
+      subSize  *= 0.9;
+      main.style.fontSize = `${mainSize}px`;
+      sub.style.fontSize  = `${subSize}px`;
+    }
   });
   obs.observe(cell);
 }
