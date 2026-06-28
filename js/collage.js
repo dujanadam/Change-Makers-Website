@@ -248,12 +248,12 @@ function shuffle(arr) {
 function pickLayout() {
   const w = window.innerWidth;
   if (w <= 480) {
-    // Mobile: max 2 rows, max 3 cols each
+    // Mobile: max 2 rows, max 2 cols each
     return [
-      [[1,1],   [1,2]  ],
-      [[2,1],   [1,1]  ],
-      [[1,1,1], [1,2]  ],
-      [[1,2],   [1,1,1]],
+      [[1,1], [1,1]],
+      [[1,2], [1,1]],
+      [[2,1], [1,1]],
+      [[1,1], [2,1]],
     ][Math.floor(Math.random() * 4)];
   }
   if (w <= 900) {
