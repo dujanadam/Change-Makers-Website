@@ -364,7 +364,8 @@ h4, h5, label, .label {
   padding: 8px;
   background: var(--white);
   box-sizing: border-box;
-  transform: translateZ(0); /* keep on GPU layer so images don't blank on scroll re-entry */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .collage-row {

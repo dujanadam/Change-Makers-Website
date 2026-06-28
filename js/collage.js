@@ -478,7 +478,36 @@ function initRegenOnDblClick() {
 document.addEventListener('DOMContentLoaded', () => {
   renderCollage();
   initRegenOnDblClick();
+  initScrollRepaint();
 });
+
+/* ─── iOS SCROLL REPAINT ─────────────────────────────────────── */
+/* iOS Safari evicts GPU textures under memory pressure. When the user
+   scrolls far away and comes back, images blank out. Fix: watch scroll
+   position and force imgs to re-decode while the collage is still just
+   off-screen — so they're ready by the time they scroll into view. */
+function initScrollRepaint() {
+  var needsRefresh = false;
+
+  window.addEventListener('scroll', function () {
+    var sy = window.scrollY;
+    var vh = window.innerHeight;
+
+    // Once user is 1.5 screens below the collage, mark textures as suspect
+    if (sy > vh * 1.5) { needsRefresh = true; return; }
+
+    // Collage is within ~1 screen of view but still off-screen — repaint now
+    if (needsRefresh && sy < vh) {
+      needsRefresh = false;
+      var imgs = document.querySelectorAll('#collage-wrap .cell-img[src]');
+      imgs.forEach(function (img) {
+        var s = img.src;
+        img.removeAttribute('src');
+        requestAnimationFrame(function () { img.src = s; });
+      });
+    }
+  }, { passive: true });
+}
 
 /* Re-render on significant viewport resize so layout matches screen size */
 let _resizeTimer;
