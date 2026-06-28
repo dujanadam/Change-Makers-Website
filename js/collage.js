@@ -336,15 +336,13 @@ function renderCollage() {
       } else {
         const g1 = cell.sw?.[1] || '#888';
         const g2 = cell.sw?.[3] || '#aaa';
-        /* Gradient is the placeholder shown while the real image loads.
-           The <img> uses opacity:0→1 (not display:none) so the browser
-           eagerly fetches it — display:none prevents iOS from loading. */
+        /* Use background-image longhand (NOT shorthand) so the CSS class
+           background-size / background-position are NOT reset by inline style. */
         html += `
           <div class="collage-cell img-cell"
-               style="background:linear-gradient(135deg,${g1},${g2})"
+               style="background-image:linear-gradient(135deg,${g1},${g2})"
                data-url="${BASE}${cell.f}"
                data-sw='${JSON.stringify(cell.sw || [])}'>
-            <img class="cell-img" alt="" style="opacity:0">
           </div>`;
       }
     });
@@ -374,14 +372,37 @@ function renderCollage() {
 
   imgCells.forEach(cell => {
     const url = cell.dataset.url;
-    const imgEl = cell.querySelector('.cell-img');
-    imgEl.onload  = () => { imgEl.style.opacity = '1'; onImageSettled(); };
-    imgEl.onerror = () => { onImageSettled(); };
-    imgEl.src = url;
+    const img = new Image();
+    img.onload  = () => { cell.style.backgroundImage = `url('${url}')`; onImageSettled(); };
+    img.onerror = () => { onImageSettled(); };
+    img.src = url;
   });
 
   // Safety: always dismiss within 4 s regardless of network
   setTimeout(dismissLoader, 4000);
+
+  // iOS Safari drops background-image textures when elements scroll off-screen.
+  // When the collage scrolls back into view, re-set each backgroundImage so the
+  // browser re-decodes and repaints the texture from its in-memory cache.
+  if (window.IntersectionObserver) {
+    var _collageVisible = true;
+    var _io = new IntersectionObserver(function(entries) {
+      var e = entries[0];
+      if (!e.isIntersecting) {
+        _collageVisible = false;
+      } else if (!_collageVisible) {
+        _collageVisible = true;
+        wrap.querySelectorAll('.img-cell').forEach(function(cell) {
+          var bg = cell.style.backgroundImage;
+          if (bg && bg.indexOf('url(') !== -1) {
+            cell.style.backgroundImage = 'none';
+            requestAnimationFrame(function() { cell.style.backgroundImage = bg; });
+          }
+        });
+      }
+    }, { threshold: 0 });
+    _io.observe(wrap);
+  }
 
   // Scale title text to its cell size
   observeTitleCell(theme);
