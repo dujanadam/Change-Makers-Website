@@ -418,8 +418,9 @@ h4, h5, label, .label {
   font-size: 2rem;          /* overridden by ResizeObserver */
   line-height: 1.08;
   letter-spacing: -0.01em;
-  word-break: break-word;   /* wraps if needed */
-  overflow-wrap: break-word;
+  word-break: normal;
+  overflow-wrap: normal;
+  white-space: normal;
 }
 
 .title-sub {
