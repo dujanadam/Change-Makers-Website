@@ -336,13 +336,16 @@ function renderCollage() {
       } else {
         const g1 = cell.sw?.[1] || '#888';
         const g2 = cell.sw?.[3] || '#aaa';
-        /* Use background-image longhand (NOT shorthand) so the CSS class
-           background-size / background-position are NOT reset by inline style. */
+        /* Gradient is the loading placeholder. The <img> has no src until
+           the preloader completes — then src + cached decode appear instantly.
+           Using <img> (not background-image) keeps iOS Safari from blanking
+           the texture when the cell scrolls off-screen and back. */
         html += `
           <div class="collage-cell img-cell"
                style="background-image:linear-gradient(135deg,${g1},${g2})"
                data-url="${BASE}${cell.f}"
                data-sw='${JSON.stringify(cell.sw || [])}'>
+            <img class="cell-img" alt="">
           </div>`;
       }
     });
@@ -372,37 +375,18 @@ function renderCollage() {
 
   imgCells.forEach(cell => {
     const url = cell.dataset.url;
-    const img = new Image();
-    img.onload  = () => { cell.style.backgroundImage = `url('${url}')`; onImageSettled(); };
-    img.onerror = () => { onImageSettled(); };
-    img.src = url;
+    const imgEl = cell.querySelector('.cell-img');
+    // Preload via Image() — once cached, setting imgEl.src shows it instantly
+    // without any async gap. Using <img> (not background-image) keeps iOS
+    // Safari from evicting the texture when the cell scrolls off-screen.
+    const preloader = new Image();
+    preloader.onload  = () => { imgEl.src = url; onImageSettled(); };
+    preloader.onerror = () => { onImageSettled(); };
+    preloader.src = url;
   });
 
   // Safety: always dismiss within 4 s regardless of network
   setTimeout(dismissLoader, 4000);
-
-  // iOS Safari drops background-image textures when elements scroll off-screen.
-  // When the collage scrolls back into view, re-set each backgroundImage so the
-  // browser re-decodes and repaints the texture from its in-memory cache.
-  if (window.IntersectionObserver) {
-    var _collageVisible = true;
-    var _io = new IntersectionObserver(function(entries) {
-      var e = entries[0];
-      if (!e.isIntersecting) {
-        _collageVisible = false;
-      } else if (!_collageVisible) {
-        _collageVisible = true;
-        wrap.querySelectorAll('.img-cell').forEach(function(cell) {
-          var bg = cell.style.backgroundImage;
-          if (bg && bg.indexOf('url(') !== -1) {
-            cell.style.backgroundImage = 'none';
-            requestAnimationFrame(function() { cell.style.backgroundImage = bg; });
-          }
-        });
-      }
-    }, { threshold: 0 });
-    _io.observe(wrap);
-  }
 
   // Scale title text to its cell size
   observeTitleCell(theme);
