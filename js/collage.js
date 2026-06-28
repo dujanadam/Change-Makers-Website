@@ -429,7 +429,8 @@ function observeTitleCell() {
     sub.style.fontSize  = `${subSize}px`;
 
     // Shrink until content fits inside the cell (height and width)
-    while ((inner.scrollHeight > h * 1.02 || inner.scrollWidth > w * 1.02) && mainSize > 7) {
+    // Check main.scrollWidth (not inner) because inner is width:100% and never reports overflow
+    while ((inner.scrollHeight > h * 1.02 || main.scrollWidth > w * 1.02) && mainSize > 7) {
       mainSize *= 0.88;
       subSize  *= 0.88;
       main.style.fontSize = `${mainSize}px`;
