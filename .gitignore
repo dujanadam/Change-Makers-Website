@@ -8,3 +8,10 @@ node_modules/
 *.mov
 *.mp4
 *.MP4
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
