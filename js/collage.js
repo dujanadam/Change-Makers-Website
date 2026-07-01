@@ -487,33 +487,46 @@ document.addEventListener('DOMContentLoaded', () => {
    position and force imgs to re-decode while the collage is still just
    off-screen — so they're ready by the time they scroll into view. */
 function initScrollRepaint() {
-  // iOS Safari evicts GPU textures for off-screen elements under memory pressure.
-  // Strategy: once the user has scrolled well past the collage, force a full
-  // src-cycle on each image while still ~1.5 screens away from seeing them again.
-  // Double rAF gives the browser two full frames to decode before the user arrives.
+  // iOS/Android evict GPU textures for off-screen images under memory pressure.
+  // Fix 1: Use img.decode() (no src removal = no white flash) to force re-decode
+  //         while the collage is still off-screen but approaching.
+  // Fix 2: Periodic keepalive every 8s while off-screen so textures stay warm.
   var scrolledFar = false;
 
-  window.addEventListener('scroll', function () {
-    var sy = window.scrollY;
-    var vh = window.innerHeight;
-
-    // Mark textures suspect only after user is 2+ screens past the collage
-    if (sy > vh * 2) { scrolledFar = true; return; }
-
-    // Reload while still ~1.5 screens away — gives browser time to decode
-    if (scrolledFar && sy < vh * 1.5) {
-      scrolledFar = false;
-      var imgs = document.querySelectorAll('#collage-wrap .cell-img[src]');
-      imgs.forEach(function (img) {
+  function refreshImages() {
+    var imgs = document.querySelectorAll('#collage-wrap .cell-img[src]');
+    imgs.forEach(function (img) {
+      if (typeof img.decode === 'function') {
+        // Preferred: force re-decode in place — src stays set, no blank flash
+        img.decode().catch(function () {});
+      } else {
+        // Fallback: src-cycle with double rAF
         var s = img.src;
         img.removeAttribute('src');
-        // Double rAF: first frame detaches, second frame re-attaches + triggers decode
         requestAnimationFrame(function () {
           requestAnimationFrame(function () { img.src = s; });
         });
-      });
+      }
+    });
+  }
+
+  // Scroll-triggered refresh: fire ~1.5 screens before the collage becomes visible
+  window.addEventListener('scroll', function () {
+    var sy = window.scrollY;
+    var vh = window.innerHeight;
+    if (sy > vh * 2) { scrolledFar = true; return; }
+    if (scrolledFar && sy < vh * 1.5) {
+      scrolledFar = false;
+      refreshImages();
     }
   }, { passive: true });
+
+  // Periodic keepalive: every 8s while user is away, re-decode to prevent eviction
+  setInterval(function () {
+    if (window.scrollY > window.innerHeight * 1.5) {
+      refreshImages();
+    }
+  }, 8000);
 }
 
 /* Re-render on significant viewport resize so layout matches screen size */
