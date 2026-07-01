@@ -481,39 +481,81 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollRepaint();
 });
 
-/* ─── SCROLL-BACK RE-RENDER ──────────────────────────────────── */
-/* iOS/Android evict GPU image textures regardless of scroll distance
-   or time. IntersectionObserver fires the instant the collage
-   re-enters the viewport so we rebuild it then — no scroll-position
-   math needed. Images are browser-cached so the rebuild is instant. */
+/* ─── COLLAGE RE-RENDER ON RETURN ────────────────────────────── */
+/* iOS/Android evict GPU textures under memory pressure — the collage
+   goes white when the user scrolls away and returns, or switches tabs
+   and comes back. A single trigger (IntersectionObserver) isn't
+   enough because Safari sometimes doesn't fire it after backgrounding.
+   Belt-and-suspenders: observer + visibilitychange + pageshow +
+   scroll fallback that detects blank imgs by naturalWidth. */
 function initScrollRepaint() {
   var wrap = document.getElementById('collage-wrap');
+  var nav  = document.querySelector('.nav');
   if (!wrap) return;
 
-  var wasHidden = false;
-  var rendering = false;
+  var hasLeftView = false;
+  var rendering   = false;
 
+  function rerender() {
+    if (rendering) return;
+    rendering = true;
+    wrap.style.transition = 'none';
+    wrap.style.opacity    = '0';
+    requestAnimationFrame(function () {
+      renderCollage();
+      wrap.style.transition = 'opacity 0.35s ease';
+      wrap.style.opacity    = '1';
+      setTimeout(function () { rendering = false; }, 500);
+    });
+  }
+
+  function isVisible() {
+    var r = wrap.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight;
+  }
+
+  function hasBlankImages() {
+    var imgs = wrap.querySelectorAll('.cell-img[src]');
+    for (var i = 0; i < imgs.length; i++) {
+      if (imgs[i].naturalWidth === 0) return true;
+    }
+    return false;
+  }
+
+  // Primary: IntersectionObserver on the collage
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) {
-        wasHidden = true;
-      } else if (wasHidden && !rendering) {
-        wasHidden = false;
-        rendering = true;
-        var el = entry.target;
-        el.style.transition = 'none';
-        el.style.opacity    = '0';
-        requestAnimationFrame(function () {
-          renderCollage();
-          el.style.transition = 'opacity 0.35s ease';
-          el.style.opacity    = '1';
-          rendering = false;
-        });
+        hasLeftView = true;
+        if (nav) nav.classList.add('past-collage');
+      } else {
+        if (nav) nav.classList.remove('past-collage');
+        if (hasLeftView) {
+          hasLeftView = false;
+          rerender();
+        }
       }
     });
-  }, { threshold: 0.05 });
-
+  }, { threshold: 0, rootMargin: '50px 0px 50px 0px' });
   observer.observe(wrap);
+
+  // Fallback 1: tab-return / bfcache restore
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && isVisible() && hasBlankImages()) rerender();
+  });
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted && isVisible()) rerender();
+  });
+
+  // Fallback 2: scroll checkpoint — if user is looking at the collage
+  // but any img evicted, force a rebuild
+  var scrollTimer;
+  window.addEventListener('scroll', function () {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function () {
+      if (isVisible() && hasBlankImages()) rerender();
+    }, 150);
+  }, { passive: true });
 }
 
 /* Re-render on significant viewport resize so layout matches screen size */

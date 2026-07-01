@@ -243,12 +243,14 @@ h4, h5, label, .label {
   text-decoration: none;
 }
 
-.nav.scrolled .nav-apply-btn {
+.nav.scrolled .nav-apply-btn,
+.nav.past-collage .nav-apply-btn {
   opacity: 1;
   pointer-events: auto;
 }
 
-.nav.scrolled .nav-apply-btn:hover {
+.nav.scrolled .nav-apply-btn:hover,
+.nav.past-collage .nav-apply-btn:hover {
   background: var(--green-dark);
 }
 
@@ -350,9 +352,6 @@ h4, h5, label, .label {
   .menu-logo { display: none; }
   .nav-wordmark { display: none; }
   .nav-apply-btn {
-    display: block;
-    opacity: 1 !important;
-    pointer-events: auto !important;
     font-size: 0.6rem;
     padding: 6px 11px;
   }
