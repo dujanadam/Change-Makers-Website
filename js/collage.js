@@ -389,7 +389,7 @@ function renderCollage() {
   setTimeout(dismissLoader, 4000);
 
   // Scale title text to its cell size
-  observeTitleCell(theme);
+  observeTitleCell();
 }
 
 /* ─── TITLE CELL HTML ────────────────────────────────────────── */
@@ -461,18 +461,42 @@ function dismissLoader() {
   }, delay);
 }
 
+/* ─── SHARED RE-RENDER GUARD ─────────────────────────────────── */
+/* One safe re-render used by every trigger (IntersectionObserver,
+   visibilitychange, pageshow, scroll re-entry, resize, dblclick).
+   Wrapped in try/finally so any renderCollage() exception can't leave
+   the collage stuck at opacity 0 with rendering=true forever. */
+var _lastRerender = 0;
+var _rerenderPending = false;
+function safeRerender(minGapMs) {
+  var wrap = document.getElementById('collage-wrap');
+  if (!wrap) return;
+  var now = Date.now();
+  if (_rerenderPending) return;
+  if (minGapMs && now - _lastRerender < minGapMs) return;
+  _rerenderPending = true;
+  wrap.style.transition = 'none';
+  wrap.style.opacity    = '0';
+  requestAnimationFrame(function () {
+    try {
+      renderCollage();
+    } catch (e) {
+      // Never let an exception strand the collage hidden.
+      if (window.console) console.error('renderCollage failed:', e);
+    } finally {
+      wrap.style.transition = 'opacity 0.35s ease';
+      wrap.style.opacity    = '1';
+      _lastRerender    = Date.now();
+      _rerenderPending = false;
+    }
+  });
+}
+
 /* ─── DOUBLE-CLICK TO REGENERATE ────────────────────────────── */
 function initRegenOnDblClick() {
   const wrap = document.getElementById('collage-wrap');
   if (!wrap) return;
-  wrap.addEventListener('dblclick', () => {
-    wrap.style.opacity = '0';
-    wrap.style.transition = 'opacity 0.25s ease';
-    setTimeout(() => {
-      renderCollage();
-      wrap.style.opacity = '1';
-    }, 250);
-  });
+  wrap.addEventListener('dblclick', function () { safeRerender(); });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -482,79 +506,63 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ─── COLLAGE RE-RENDER ON RETURN ────────────────────────────── */
-/* iOS/Android evict GPU textures under memory pressure — the collage
-   goes white when the user scrolls away and returns, or switches tabs
-   and comes back. A single trigger (IntersectionObserver) isn't
-   enough because Safari sometimes doesn't fire it after backgrounding.
-   Belt-and-suspenders: observer + visibilitychange + pageshow +
-   scroll fallback that detects blank imgs by naturalWidth. */
+/* iOS/Android compositors evict GPU tiles for offscreen elements
+   under memory pressure. The <img> element still reports naturalWidth
+   > 0 — the *decoded bitmap* is fine, only the compositor tile is
+   gone — so eviction-detection heuristics don't work. Instead of
+   detecting, we PRE-EMPT: any time the user's attention returns to
+   the collage, we rebuild it. renderCollage() is idempotent and
+   images are HTTP-cached so the rebuild is near-instant. Triggers:
+     - IntersectionObserver (scroll back into view)
+     - visibilitychange (tab return)
+     - pageshow (bfcache restore)
+     - scroll re-entry (backup for IO misses)
+   All triggers funnel through safeRerender() with a 1.5s min-gap. */
 function initScrollRepaint() {
   var wrap = document.getElementById('collage-wrap');
   var nav  = document.querySelector('.nav');
   if (!wrap) return;
 
-  var hasLeftView = false;
-  var rendering   = false;
-
-  function rerender() {
-    if (rendering) return;
-    rendering = true;
-    wrap.style.transition = 'none';
-    wrap.style.opacity    = '0';
-    requestAnimationFrame(function () {
-      renderCollage();
-      wrap.style.transition = 'opacity 0.35s ease';
-      wrap.style.opacity    = '1';
-      setTimeout(function () { rendering = false; }, 500);
-    });
-  }
+  var offscreen = false;
 
   function isVisible() {
     var r = wrap.getBoundingClientRect();
     return r.bottom > 0 && r.top < window.innerHeight;
   }
 
-  function hasBlankImages() {
-    var imgs = wrap.querySelectorAll('.cell-img[src]');
-    for (var i = 0; i < imgs.length; i++) {
-      if (imgs[i].naturalWidth === 0) return true;
-    }
-    return false;
-  }
-
-  // Primary: IntersectionObserver on the collage
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) {
-        hasLeftView = true;
+        offscreen = true;
         if (nav) nav.classList.add('past-collage');
       } else {
         if (nav) nav.classList.remove('past-collage');
-        if (hasLeftView) {
-          hasLeftView = false;
-          rerender();
+        if (offscreen) {
+          offscreen = false;
+          safeRerender(1500);
         }
       }
     });
-  }, { threshold: 0, rootMargin: '50px 0px 50px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
   observer.observe(wrap);
 
-  // Fallback 1: tab-return / bfcache restore
   document.addEventListener('visibilitychange', function () {
-    if (!document.hidden && isVisible() && hasBlankImages()) rerender();
-  });
-  window.addEventListener('pageshow', function (e) {
-    if (e.persisted && isVisible()) rerender();
+    if (!document.hidden && isVisible()) safeRerender(1500);
   });
 
-  // Fallback 2: scroll checkpoint — if user is looking at the collage
-  // but any img evicted, force a rebuild
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted && isVisible()) safeRerender(1500);
+  });
+
   var scrollTimer;
   window.addEventListener('scroll', function () {
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(function () {
-      if (isVisible() && hasBlankImages()) rerender();
-    }, 150);
+      if (offscreen === false && isVisible() && window.scrollY < window.innerHeight * 0.5) {
+        // No-op if IO already re-rendered recently; safeRerender's gap gate handles it.
+        safeRerender(1500);
+      }
+    }, 200);
   }, { passive: true });
 }
 
@@ -562,14 +570,5 @@ function initScrollRepaint() {
 let _resizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(_resizeTimer);
-  _resizeTimer = setTimeout(() => {
-    const wrap = document.getElementById('collage-wrap');
-    if (!wrap) return;
-    wrap.style.opacity = '0';
-    wrap.style.transition = 'opacity 0.2s ease';
-    setTimeout(() => {
-      renderCollage();
-      wrap.style.opacity = '1';
-    }, 200);
-  }, 350);
+  _resizeTimer = setTimeout(function () { safeRerender(); }, 350);
 });
