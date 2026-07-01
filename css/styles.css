@@ -404,8 +404,6 @@ h4, h5, label, .label {
   padding: 8px;
   background: var(--white);
   box-sizing: border-box;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
 .collage-row {
@@ -443,8 +441,6 @@ h4, h5, label, .label {
   object-fit: cover;
   object-position: center;
   transition: opacity 0.3s ease;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 .collage-cell.img-cell:hover .cell-img {
