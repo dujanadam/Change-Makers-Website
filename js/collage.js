@@ -481,52 +481,42 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollRepaint();
 });
 
-/* ─── iOS SCROLL REPAINT ─────────────────────────────────────── */
-/* iOS Safari evicts GPU textures under memory pressure. When the user
-   scrolls far away and comes back, images blank out. Fix: watch scroll
-   position and force imgs to re-decode while the collage is still just
-   off-screen — so they're ready by the time they scroll into view. */
+/* ─── SCROLL-BACK RE-RENDER ──────────────────────────────────── */
+/* iOS/Android evict GPU image textures under memory pressure, causing
+   the collage to go white when the user scrolls away and returns.
+   Rather than fight texture eviction, we re-render the whole collage
+   once the user scrolls back near the top — fresh images, no blank. */
 function initScrollRepaint() {
-  // iOS/Android evict GPU textures for off-screen images under memory pressure.
-  // Fix 1: Use img.decode() (no src removal = no white flash) to force re-decode
-  //         while the collage is still off-screen but approaching.
-  // Fix 2: Periodic keepalive every 8s while off-screen so textures stay warm.
   var scrolledFar = false;
+  var rendering   = false;
 
-  function refreshImages() {
-    var imgs = document.querySelectorAll('#collage-wrap .cell-img[src]');
-    imgs.forEach(function (img) {
-      if (typeof img.decode === 'function') {
-        // Preferred: force re-decode in place — src stays set, no blank flash
-        img.decode().catch(function () {});
-      } else {
-        // Fallback: src-cycle with double rAF
-        var s = img.src;
-        img.removeAttribute('src');
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () { img.src = s; });
-        });
-      }
-    });
-  }
-
-  // Scroll-triggered refresh: fire ~1.5 screens before the collage becomes visible
   window.addEventListener('scroll', function () {
     var sy = window.scrollY;
     var vh = window.innerHeight;
-    if (sy > vh * 2) { scrolledFar = true; return; }
-    if (scrolledFar && sy < vh * 1.5) {
+
+    if (sy > vh * 1.5) {
+      scrolledFar = true;
+      return;
+    }
+
+    if (scrolledFar && sy < vh * 0.8 && !rendering) {
       scrolledFar = false;
-      refreshImages();
+      rendering   = true;
+      var wrap = document.getElementById('collage-wrap');
+      if (wrap) {
+        wrap.style.transition = 'none';
+        wrap.style.opacity    = '0';
+        requestAnimationFrame(function () {
+          renderCollage();
+          wrap.style.transition = 'opacity 0.3s ease';
+          wrap.style.opacity    = '1';
+          rendering = false;
+        });
+      } else {
+        rendering = false;
+      }
     }
   }, { passive: true });
-
-  // Periodic keepalive: every 8s while user is away, re-decode to prevent eviction
-  setInterval(function () {
-    if (window.scrollY > window.innerHeight * 1.5) {
-      refreshImages();
-    }
-  }, 8000);
 }
 
 /* Re-render on significant viewport resize so layout matches screen size */
