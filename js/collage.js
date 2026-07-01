@@ -482,41 +482,38 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ─── SCROLL-BACK RE-RENDER ──────────────────────────────────── */
-/* iOS/Android evict GPU image textures under memory pressure, causing
-   the collage to go white when the user scrolls away and returns.
-   Rather than fight texture eviction, we re-render the whole collage
-   once the user scrolls back near the top — fresh images, no blank. */
+/* iOS/Android evict GPU image textures regardless of scroll distance
+   or time. IntersectionObserver fires the instant the collage
+   re-enters the viewport so we rebuild it then — no scroll-position
+   math needed. Images are browser-cached so the rebuild is instant. */
 function initScrollRepaint() {
-  var scrolledFar = false;
-  var rendering   = false;
+  var wrap = document.getElementById('collage-wrap');
+  if (!wrap) return;
 
-  window.addEventListener('scroll', function () {
-    var sy = window.scrollY;
-    var vh = window.innerHeight;
+  var wasHidden = false;
+  var rendering = false;
 
-    if (sy > vh * 1.5) {
-      scrolledFar = true;
-      return;
-    }
-
-    if (scrolledFar && sy < vh * 0.8 && !rendering) {
-      scrolledFar = false;
-      rendering   = true;
-      var wrap = document.getElementById('collage-wrap');
-      if (wrap) {
-        wrap.style.transition = 'none';
-        wrap.style.opacity    = '0';
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) {
+        wasHidden = true;
+      } else if (wasHidden && !rendering) {
+        wasHidden = false;
+        rendering = true;
+        var el = entry.target;
+        el.style.transition = 'none';
+        el.style.opacity    = '0';
         requestAnimationFrame(function () {
           renderCollage();
-          wrap.style.transition = 'opacity 0.3s ease';
-          wrap.style.opacity    = '1';
+          el.style.transition = 'opacity 0.35s ease';
+          el.style.opacity    = '1';
           rendering = false;
         });
-      } else {
-        rendering = false;
       }
-    }
-  }, { passive: true });
+    });
+  }, { threshold: 0.05 });
+
+  observer.observe(wrap);
 }
 
 /* Re-render on significant viewport resize so layout matches screen size */
