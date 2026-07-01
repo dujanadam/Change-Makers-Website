@@ -487,23 +487,30 @@ document.addEventListener('DOMContentLoaded', () => {
    position and force imgs to re-decode while the collage is still just
    off-screen — so they're ready by the time they scroll into view. */
 function initScrollRepaint() {
-  var needsRefresh = false;
+  // iOS Safari evicts GPU textures for off-screen elements under memory pressure.
+  // Strategy: once the user has scrolled well past the collage, force a full
+  // src-cycle on each image while still ~1.5 screens away from seeing them again.
+  // Double rAF gives the browser two full frames to decode before the user arrives.
+  var scrolledFar = false;
 
   window.addEventListener('scroll', function () {
     var sy = window.scrollY;
     var vh = window.innerHeight;
 
-    // Once user is 1.5 screens below the collage, mark textures as suspect
-    if (sy > vh * 1.5) { needsRefresh = true; return; }
+    // Mark textures suspect only after user is 2+ screens past the collage
+    if (sy > vh * 2) { scrolledFar = true; return; }
 
-    // Collage is within ~1 screen of view but still off-screen — repaint now
-    if (needsRefresh && sy < vh) {
-      needsRefresh = false;
+    // Reload while still ~1.5 screens away — gives browser time to decode
+    if (scrolledFar && sy < vh * 1.5) {
+      scrolledFar = false;
       var imgs = document.querySelectorAll('#collage-wrap .cell-img[src]');
       imgs.forEach(function (img) {
         var s = img.src;
         img.removeAttribute('src');
-        requestAnimationFrame(function () { img.src = s; });
+        // Double rAF: first frame detaches, second frame re-attaches + triggers decode
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { img.src = s; });
+        });
       });
     }
   }, { passive: true });
