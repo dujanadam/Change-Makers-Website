@@ -332,16 +332,6 @@ h4, h5, label, .label {
   transform: scale(1.03);
 }
 
-.menu-apply-btn--top {
-  font-size: 0.8rem;
-  font-family: var(--font-body);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 8px 20px;
-  margin-top: 12px;
-  margin-bottom: 28px;
-}
 
 /* Logo on the right side of the menu overlay */
 .menu-logo {
@@ -359,6 +349,7 @@ h4, h5, label, .label {
 @media (max-width: 600px) {
   .menu-logo { display: none; }
   .nav-apply-btn { display: none !important; }
+  .nav-wordmark { display: none; }
 }
 
 .menu-close {
