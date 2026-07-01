@@ -348,8 +348,14 @@ h4, h5, label, .label {
 
 @media (max-width: 600px) {
   .menu-logo { display: none; }
-  .nav-apply-btn { display: none !important; }
   .nav-wordmark { display: none; }
+  .nav-apply-btn {
+    display: block;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    font-size: 0.6rem;
+    padding: 6px 11px;
+  }
 }
 
 .menu-close {
