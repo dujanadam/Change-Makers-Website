@@ -358,6 +358,7 @@ h4, h5, label, .label {
 
 @media (max-width: 600px) {
   .menu-logo { display: none; }
+  .nav-apply-btn { display: none !important; }
 }
 
 .menu-close {
@@ -446,6 +447,8 @@ h4, h5, label, .label {
   object-fit: cover;
   object-position: center;
   transition: opacity 0.3s ease;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .collage-cell.img-cell:hover .cell-img {
