@@ -166,7 +166,7 @@
             Why do you want to be a Change Maker? <span class="req">*</span>
           </label>
           <textarea class="form-textarea" id="f-why-maker" name="entry.661655744"
-                    placeholder="In their own words — what draws them to this?" required style="min-height:110px;"></textarea>
+                    placeholder="In your own words — what draws you to this?" required style="min-height:110px;"></textarea>
         </div>
 
         <div class="form-group">
@@ -182,7 +182,7 @@
             Are you brave? <span class="req">*</span>
           </label>
           <textarea class="form-textarea" id="f-brave" name="entry.1928925230"
-                    placeholder="Bravery looks different for everyone — tell us about theirs." required></textarea>
+                    placeholder="Bravery looks different for everyone — tell us about yours." required></textarea>
         </div>
 
         <div class="form-group">
@@ -287,17 +287,40 @@
       <script>
       (function() {
         var form = document.getElementById('cm-apply-form');
-        form.addEventListener('submit', function(e) {
+        var submitBtn = form.querySelector('button[type="submit"]');
+
+        function ensureBanner() {
+          var b = form.querySelector('.form-error-banner');
+          if (b) return b;
+          b = document.createElement('div');
+          b.className = 'form-error-banner';
+          b.setAttribute('role', 'alert');
+          b.style.cssText = 'background:#FDECEA;border:2px solid #E53935;color:#B71C1C;padding:14px 18px;border-radius:12px;margin-bottom:20px;font-weight:700;font-family:Nunito,sans-serif;';
+          form.insertBefore(b, form.firstChild);
+          return b;
+        }
+
+        function clearBanner() {
+          var b = form.querySelector('.form-error-banner');
+          if (b) b.remove();
+        }
+
+        function validate() {
           var fields = Array.prototype.slice.call(form.querySelectorAll('[required]'));
-          var valid = true;
+          var missing = 0;
           fields.forEach(function(el) {
             var grp = el.closest('.form-group');
-            var empty = (el.type === 'radio')
-              ? !form.querySelector('[name="' + el.name + '"]:checked')
-              : !el.value.trim();
+            var empty;
+            if (el.type === 'radio') {
+              empty = !form.querySelector('[name="' + el.name + '"]:checked');
+            } else if (el.type === 'checkbox') {
+              empty = !el.checked;
+            } else {
+              empty = !el.value.trim();
+            }
             if (empty) {
-              valid = false;
-              if (el.type !== 'radio') el.style.borderColor = '#E53935';
+              missing++;
+              if (el.type !== 'radio' && el.type !== 'checkbox') el.style.borderColor = '#E53935';
               if (grp && !grp.querySelector('.ferr')) {
                 var err = document.createElement('span');
                 err.className = 'ferr';
@@ -306,16 +329,25 @@
                 grp.appendChild(err);
               }
             } else {
-              el.style.borderColor = '';
+              if (el.type !== 'radio' && el.type !== 'checkbox') el.style.borderColor = '';
               if (grp) { var f = grp.querySelector('.ferr'); if (f) f.remove(); }
             }
           });
-          if (!valid) {
+          return missing;
+        }
+
+        form.addEventListener('submit', function(e) {
+          var missing = validate();
+          if (missing > 0) {
             e.preventDefault();
-            var firstErr = form.querySelector('.ferr');
-            if (firstErr) firstErr.closest('.form-group').scrollIntoView({behavior:'smooth',block:'center'});
-            return;
+            e.stopPropagation();
+            var banner = ensureBanner();
+            banner.textContent = 'Please complete the ' + missing + ' remaining question' + (missing === 1 ? '' : 's') + ' before submitting.';
+            banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return false;
           }
+          clearBanner();
+          if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
           /* All valid — let the form POST natively to the hidden iframe */
           setTimeout(function() {
             form.style.transition = 'opacity .3s';
@@ -328,14 +360,22 @@
                 + '<p style="color:#4B5563;line-height:1.7;max-width:400px;margin:0 auto;font-family:Nunito,sans-serif;font-size:1rem;font-weight:600">Thank you! We will be in touch within a few days. Get ready to make a difference.</p>';
               if (form.parentNode) form.parentNode.replaceChild(s, form);
             }, 300);
-          }, 400);
+          }, 600);
         });
+
         form.querySelectorAll('input,textarea,select').forEach(function(el) {
           el.addEventListener('change', function() {
             el.style.borderColor = '';
             var grp = el.closest('.form-group');
             if (grp) { var f = grp.querySelector('.ferr'); if (f) f.remove(); }
+            var banner = form.querySelector('.form-error-banner');
+            if (banner && validate() === 0) clearBanner();
           });
+          if (el.tagName === 'TEXTAREA' || el.type === 'text' || el.type === 'email') {
+            el.addEventListener('input', function() {
+              if (el.value.trim()) el.style.borderColor = '';
+            });
+          }
         });
       })();
       </script>
