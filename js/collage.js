@@ -429,8 +429,8 @@ function observeTitleCell() {
     const inner = cell.querySelector('[data-title-inner]');
     if (!main || !sub || !inner) return;
 
-    let mainSize = Math.max(smaller * 0.21, 10);
-    let subSize  = Math.max(smaller * 0.085, 7);
+    let mainSize = Math.max(smaller * 0.14, 10);
+    let subSize  = Math.max(smaller * 0.065, 7);
     main.style.fontSize = `${mainSize}px`;
     sub.style.fontSize  = `${subSize}px`;
 
