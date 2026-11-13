@@ -861,6 +861,83 @@ h4, h5, label, .label {
   font-weight: 600;
 }
 
+/* Where the money goes */
+.money-split {
+  margin-top: 64px;
+  background: var(--off-white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+}
+
+.money-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--dark);
+  line-height: 1.2;
+}
+
+.money-intro {
+  font-size: 0.98rem;
+  color: var(--gray-600);
+  margin-top: 8px;
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+.money-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.money-row {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.money-pct {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.money-pct--green { color: var(--green-dark); }
+.money-pct--blue  { color: var(--blue-dark); }
+.money-pct--deep  { color: var(--green-deep); }
+
+.money-track {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-full);
+  height: 28px;
+  overflow: hidden;
+}
+
+.money-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+}
+
+.money-fill--green { background: var(--green-dark); }
+.money-fill--blue  { background: var(--blue-dark); }
+.money-fill--deep  { background: var(--green-deep); }
+
+.money-label {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+@media (max-width: 600px) {
+  .money-split { padding: 28px 20px; }
+  .money-row { grid-template-columns: 52px minmax(0, 1fr); gap: 6px 12px; }
+  .money-label { grid-column: 1 / -1; }
+}
+
 .program-steps {
   margin-top: 70px;
 }
